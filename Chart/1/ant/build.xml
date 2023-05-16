@@ -85,7 +85,7 @@
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+<!--         <delete dir="${basedir}/build" /> -->
 
     </target>
 
@@ -95,7 +95,7 @@
             description="Compile the JFreeChart experimental classes"> 
 
         <!-- create a temp build directory -->
-        <mkdir dir="${basedir}/build" />
+        <mkdir dir="${basedir}/build-exp" />
 
         <path id="build.experimental.classpath">
             <pathelement location="${servlet.jar}"/>
@@ -104,7 +104,7 @@
 
         <!-- compile the source -->
         <javac srcdir="${basedir}/experimental" 
-               destdir="${basedir}/build"
+               destdir="${basedir}/build-exp"
                debug="on"
                deprecation="false"
                source="1.8"
@@ -116,11 +116,11 @@
 
         <!-- make the jar -->
         <jar jarfile="${basedir}/${jfreechart.name}-${jfreechart.version}-experimental.jar"
-             basedir="${basedir}/build" >
+             basedir="${basedir}/build-exp" >
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+        <delete dir="${basedir}/build-exp" />
     </target>
 
 
@@ -360,6 +360,7 @@
 <property name="sonar.projectName" value="generative-ai758_gen-ai-chart" />
 <property name="sonar.projectVersion" value="1.0" />
 <property name="sonar.sources" value="${basedir}/source" />
+<property name="sonar.java.binaries" value="${basedir}/build" />
 <property name="sonar.java.libraries" value="${basedir}/lib/*.jar" />
 <property name="sonar.java.source" value="1.11" />
 <property name="sonar.java.target" value="1.11" />
