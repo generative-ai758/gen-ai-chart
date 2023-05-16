@@ -49,7 +49,7 @@
                debug="on"
                deprecation="false"
                source="1.4"
-               target="1.4">
+               target="1.8">
             <classpath refid="build.classpath" />
             <include name="org/jfree/**"/>       	
         </javac>
@@ -108,7 +108,7 @@
                debug="on"
                deprecation="false"
                source="1.4"
-               target="1.4">
+               target="1.8">
             <classpath refid="build.experimental.classpath" />
             <include name="org/jfree/experimental/**"/>
             <exclude name="org/jfree/experimental/**/junit/*"/>
@@ -296,7 +296,7 @@
         <javac srcdir="${basedir}/tests" 
                destdir="${basedir}/build-tests" 
                source="1.4"
-               target="1.4" 
+               target="1.8" 
                debug="true" 
                deprecation="false"
                optimize="false">
@@ -343,11 +343,11 @@
     </target>
 
     <!-- ALL -->
-    <target name="all" 
+	<target name="all" 
             depends="compile,compile-experimental,zip-javadocs,zip,targz,maven-bundle"
             description="Compiles JFreeChart, builds the jar files, generates the Javadoc HTML pages and creates distribution files (.zip and .tar.gz).">
 
-        <!-- delete the temporary distribution directory -->
+      
         <delete dir="${basedir}/distribution" />    
     </target>
 	
@@ -360,20 +360,22 @@
 <!-- Optional properties -->
 <property name="sonar.projectName" value="gen-ai-chart" />
 <property name="sonar.projectVersion" value="1.0" />
-<property name="sonar.sources" value="src" />
-<property name="sonar.java.binaries" value="build" />
-<property name="sonar.java.libraries" value="lib/*.jar" />
+<property name="sonar.sources" value="${basedir}/source" />
+<property name="sonar.java.binaries" value="${basedir}/build" />
+<property name="sonar.java.libraries" value="${basedir}/lib/*.jar" />
 
 
 <!-- Define SonarScanner for Ant Target -->
 <target name="sonar">
     <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
         <!-- Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
-        <classpath path="$HOME/ant/lib/sonarqube-ant-task-*.jar" />
+        <classpath path="${basedir}/ant/lib/sonarqube-ant-task-2.7.1.1951.jar" />
     </taskdef>
 
     <!-- Execute SonarScanner for Ant Analysis -->
     <sonar:sonar />
 </target>
+	
+
 
 </project>
