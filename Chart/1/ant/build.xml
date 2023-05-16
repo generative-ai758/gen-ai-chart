@@ -354,7 +354,7 @@
 	<!-- Mandatory properties -->
 		<property name="sonar.host.url" value="https://sonarcloud.io" />
 		<property name="sonar.organization" value="generative-ai758" />
-		<property name="sonar.projectkey" value="generative-ai758_gen-ai-chart" />
+		<property name="sonar.projectKey" value="generative-ai758_gen-ai-chart" />
 
 <!-- Optional properties -->
 <property name="sonar.projectName" value="generative-ai758_gen-ai-chart" />
