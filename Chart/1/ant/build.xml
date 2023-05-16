@@ -343,13 +343,13 @@
     </target>
 
     <!-- ALL -->
-    <target name="all" 
+<!--     <target name="all" 
             depends="compile,compile-experimental,zip-javadocs,zip,targz,maven-bundle"
             description="Compiles JFreeChart, builds the jar files, generates the Javadoc HTML pages and creates distribution files (.zip and .tar.gz).">
 
-        <!-- delete the temporary distribution directory -->
+      
         <delete dir="${basedir}/distribution" />    
-    </target>
+    </target> -->
 	
 	<!-- Mandatory properties -->
 		<property name="sonar.host.url" value="https://sonarcloud.io" />
