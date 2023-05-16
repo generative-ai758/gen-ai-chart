@@ -363,8 +363,8 @@
 <property name="sonar.sources" value="${basedir}/source" />
 <property name="sonar.java.binaries" value="${basedir}/build" />
 <property name="sonar.java.libraries" value="${basedir}/lib/*.jar" />
-<property name="sonar.java.source" value="1.8" />
-<property name="sonar.java.target" value="1.8" />
+<property name="sonar.java.source" value="1.11" />
+<property name="sonar.java.target" value="1.11" />
 
 
 <!-- Define SonarScanner for Ant Target -->
