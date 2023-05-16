@@ -24,12 +24,17 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/ant/build.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+#       - name: Cache Maven packages
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.m2
+#           key: ${{ runner.os }}-m2-${{ hashFiles('**/ant/build.xml') }}
+#           restore-keys: ${{ runner.os }}-m2
+#           steps:
+      - name: Build with Ant
+        run: |
+          ls -a
+          ant -noinput -buildfile build.xml
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
