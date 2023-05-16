@@ -375,5 +375,14 @@
     <!-- Execute SonarScanner for Ant Analysis -->
     <sonar:sonar />
 </target>
+	
+	
+ <target name="all" 
+            depends="compile,compile-experimental,zip-javadocs,zip,targz,maven-bundle,sonar"
+            description="Compiles JFreeChart, builds the jar files, generates the Javadoc HTML pages and creates distribution files (.zip and .tar.gz).">
+
+        <!-- delete the temporary distribution directory -->
+        <delete dir="${basedir}/distribution" />    
+</target>
 
 </project>
