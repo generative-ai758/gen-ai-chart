@@ -15,16 +15,16 @@
 <!-- If you have comments about this script, please post a message -->
 <!-- on the JFreeChart developers mailing list. -->
 
-<project name="jfreechart" default="all" basedir="..">
-
+<project name="jfreechart" default="all" basedir=".." xmlns:sonar="antlib:org.sonar.ant">
+	
     <!-- Initialisation. -->
     <target name="initialise" description="Initialise required settings.">
         <tstamp />
         <property name="jfreechart.name" value="jfreechart" />
-        <property name="jfreechart.version" value="1.2.0-pre1" />
+        <property name="jfreechart.version" value="1.2.0-ea1" />
         <property name="jfreechart-bundle-file" value="${jfreechart.name}-${jfreechart.version}-bundle.jar" />
-        <property name="itext.name" value="itext" />
-        <property name="itext.version" value="2.0.2" />
+        <property name="itext.name" value="iText" />
+        <property name="itext.version" value="2.1.4" />
         <property name="itext.jar" value="${basedir}/lib/${itext.name}-${itext.version}.jar"/>
         <property name="builddir" value="${basedir}/build" />
         <property name="servlet.jar" value="${basedir}/lib/servlet.jar"/>
@@ -48,8 +48,8 @@
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
-               source="1.4"
-               target="1.4">
+               source="1.8"
+               target="1.8">
             <classpath refid="build.classpath" />
             <include name="org/jfree/**"/>       	
         </javac>
@@ -85,7 +85,7 @@
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+<!--         <delete dir="${basedir}/build" /> -->
 
     </target>
 
@@ -95,7 +95,7 @@
             description="Compile the JFreeChart experimental classes"> 
 
         <!-- create a temp build directory -->
-        <mkdir dir="${basedir}/build" />
+        <mkdir dir="${basedir}/build-exp" />
 
         <path id="build.experimental.classpath">
             <pathelement location="${servlet.jar}"/>
@@ -104,11 +104,11 @@
 
         <!-- compile the source -->
         <javac srcdir="${basedir}/experimental" 
-               destdir="${basedir}/build"
+               destdir="${basedir}/build-exp"
                debug="on"
                deprecation="false"
-               source="1.4"
-               target="1.4">
+               source="1.8"
+               target="1.8">
             <classpath refid="build.experimental.classpath" />
             <include name="org/jfree/experimental/**"/>
             <exclude name="org/jfree/experimental/**/junit/*"/>
@@ -116,11 +116,11 @@
 
         <!-- make the jar -->
         <jar jarfile="${basedir}/${jfreechart.name}-${jfreechart.version}-experimental.jar"
-             basedir="${basedir}/build" >
+             basedir="${basedir}/build-exp" >
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+        <delete dir="${basedir}/build-exp" />
     </target>
 
 
@@ -202,8 +202,8 @@
         </copy>    	
 
         <!-- copy across lib files -->
-        <copy file="${basedir}/lib/swtgraphics2d.jar" tofile="${basedir}/distribution/lib/swtgraphics2d.jar" />
-        <copy file="${basedir}/lib/jfreechart-${jfreechart.version}-swt.jar" tofile="${basedir}/distribution/lib/${jfreechart.name}-${jfreechart.version}-swt.jar" />
+        <copy file="${basedir}/lib/swtgraphics2d.jar" tofile="${basedir}/distribution/lib/swtgraphics2d.jar" failonerror="false" />
+        <copy file="${basedir}/lib/jfreechart-${jfreechart.version}-swt.jar" tofile="${basedir}/distribution/lib/${jfreechart.name}-${jfreechart.version}-swt.jar" failonerror="false" />
         <copy file="${servlet.jar}" tofile="${basedir}/distribution/lib/servlet.jar" />
         <copy file="${junit.jar}" tofile="${basedir}/distribution/lib/junit.jar" />
         <copy file="${itext.jar}" tofile="${basedir}/distribution/lib/${itext.name}-${itext.version}.jar" />
@@ -295,8 +295,8 @@
         <mkdir dir="${basedir}/build-tests"/>
         <javac srcdir="${basedir}/tests" 
                destdir="${basedir}/build-tests" 
-               source="1.4"
-               target="1.4" 
+               source="1.8"
+               target="1.8" 
                debug="true" 
                deprecation="false"
                optimize="false">
@@ -343,12 +343,40 @@
     </target>
 
     <!-- ALL -->
-    <target name="all" 
+	<target name="all" 
             depends="compile,compile-experimental,zip-javadocs,zip,targz,maven-bundle"
             description="Compiles JFreeChart, builds the jar files, generates the Javadoc HTML pages and creates distribution files (.zip and .tar.gz).">
 
-        <!-- delete the temporary distribution directory -->
+      
         <delete dir="${basedir}/distribution" />    
     </target>
+	
+	<!-- Mandatory properties -->
+		<property name="sonar.host.url" value="https://sonarcloud.io" />
+		<property name="sonar.organization" value="generative-ai758" />
+		<property name="sonar.projectKey" value="generative-ai758_gen-ai-chart" />
+
+<!-- Optional properties -->
+<property name="sonar.projectName" value="generative-ai758_gen-ai-chart" />
+<property name="sonar.projectVersion" value="1.0" />
+<property name="sonar.sources" value="${basedir}/source" />
+<property name="sonar.java.binaries" value="${basedir}/build" />
+<property name="sonar.java.libraries" value="${basedir}/lib/*.jar" />
+<property name="sonar.java.source" value="1.11" />
+<property name="sonar.java.target" value="1.11" />
+
+
+<!-- Define SonarScanner for Ant Target -->
+<target name="sonar">
+    <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+        <!-- Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+        <classpath path="${basedir}/ant/lib/sonarqube-ant-task-2.7.1.1951.jar" />
+    </taskdef>
+
+    <!-- Execute SonarScanner for Ant Analysis -->
+    <sonar:sonar />
+</target>
+	
+
 
 </project>
