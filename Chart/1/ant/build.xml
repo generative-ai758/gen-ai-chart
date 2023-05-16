@@ -48,7 +48,7 @@
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
-               source="1.4"
+               source="1.8"
                target="1.8">
             <classpath refid="build.classpath" />
             <include name="org/jfree/**"/>       	
@@ -85,7 +85,7 @@
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+<!--         <delete dir="${basedir}/build" /> -->
 
     </target>
 
@@ -95,7 +95,7 @@
             description="Compile the JFreeChart experimental classes"> 
 
         <!-- create a temp build directory -->
-        <mkdir dir="${basedir}/build" />
+        <mkdir dir="${basedir}/build-exp" />
 
         <path id="build.experimental.classpath">
             <pathelement location="${servlet.jar}"/>
@@ -104,10 +104,10 @@
 
         <!-- compile the source -->
         <javac srcdir="${basedir}/experimental" 
-               destdir="${basedir}/build"
+               destdir="${basedir}/build-exp"
                debug="on"
                deprecation="false"
-               source="1.4"
+               source="1.8"
                target="1.8">
             <classpath refid="build.experimental.classpath" />
             <include name="org/jfree/experimental/**"/>
@@ -116,11 +116,11 @@
 
         <!-- make the jar -->
         <jar jarfile="${basedir}/${jfreechart.name}-${jfreechart.version}-experimental.jar"
-             basedir="${basedir}/build" >
+             basedir="${basedir}/build-exp" >
         </jar>
 
         <!-- delete the temp directory -->
-        <delete dir="${basedir}/build" />
+        <delete dir="${basedir}/build-exp" />
     </target>
 
 
@@ -295,7 +295,7 @@
         <mkdir dir="${basedir}/build-tests"/>
         <javac srcdir="${basedir}/tests" 
                destdir="${basedir}/build-tests" 
-               source="1.4"
+               source="1.8"
                target="1.8" 
                debug="true" 
                deprecation="false"
@@ -354,15 +354,16 @@
 	<!-- Mandatory properties -->
 		<property name="sonar.host.url" value="https://sonarcloud.io" />
 		<property name="sonar.organization" value="generative-ai758" />
-		<property name="sonar.projectKey" value="gen-ai-chart" />
-
+		<property name="sonar.projectKey" value="generative-ai758_gen-ai-chart" />
 
 <!-- Optional properties -->
-<property name="sonar.projectName" value="gen-ai-chart" />
+<property name="sonar.projectName" value="generative-ai758_gen-ai-chart" />
 <property name="sonar.projectVersion" value="1.0" />
 <property name="sonar.sources" value="${basedir}/source" />
 <property name="sonar.java.binaries" value="${basedir}/build" />
 <property name="sonar.java.libraries" value="${basedir}/lib/*.jar" />
+<property name="sonar.java.source" value="1.11" />
+<property name="sonar.java.target" value="1.11" />
 
 
 <!-- Define SonarScanner for Ant Target -->
