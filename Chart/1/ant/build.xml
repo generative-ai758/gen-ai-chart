@@ -350,5 +350,30 @@
         <!-- delete the temporary distribution directory -->
         <delete dir="${basedir}/distribution" />    
     </target>
+	
+	<!-- Mandatory properties -->
+		<property name="sonar.host.url" value="https://sonarcloud.io" />
+		<property name="sonar.organization" value="generative-ai758" />
+		<property name="sonar.projectKey" value="gen-ai-chart" />
+...
+
+<!-- Optional properties -->
+<property name="sonar.projectName" value="gen-ai-chart" />
+<property name="sonar.projectVersion" value="1.0" />
+<property name="sonar.sources" value="src" />
+<property name="sonar.java.binaries" value="build" />
+<property name="sonar.java.libraries" value="lib/*.jar" />
+...
+
+<!-- Define SonarScanner for Ant Target -->
+<target name="sonar">
+    <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+        <!-- Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+        <classpath path="path/to/sonar/ant/task/lib/sonarqube-ant-task-*.jar" />
+    </taskdef>
+
+    <!-- Execute SonarScanner for Ant Analysis -->
+    <sonar:sonar />
+</target>
 
 </project>
