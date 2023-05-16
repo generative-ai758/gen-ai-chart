@@ -37,10 +37,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: | 	ant sonar -buildfile Chart/1/ant/build.xml |
-        	ant sonar -buildfile Chart/5/ant/build.xml |
-        	ant sonar -buildfile Chart/9/ant/build.xml |
-        	ant sonar -buildfile Chart/11/ant/build.xml |
-        	ant sonar -buildfile Chart/12/ant/build.xml |
-        	ant sonar -buildfile Chart/16/ant/build.xml |
-		ant sonar -buildfile Chart/17/ant/build.xml |
+        run: ant sonar -buildfile Chart/1/ant/build.xml | ant sonar -buildfile Chart/5/ant/build.xml | ant sonar -buildfile Chart/9/ant/build.xml | ant sonar -buildfile Chart/11/ant/build.xml | ant sonar -buildfile Chart/12/ant/build.xml | ant sonar -buildfile Chart/16/ant/build.xml | ant sonar -buildfile Chart/17/ant/build.xml |
