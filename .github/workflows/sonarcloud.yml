@@ -32,9 +32,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
           steps:
       - name: Build with Ant
-        run: | 
-        pwd 
-        ant -noinput -buildfile Chart/5/ant/build.xml 
+        run: pwd | ant -noinput -buildfile Chart/5/ant/build.xml 
         
       - name: Build and analyze
         env:
